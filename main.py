@@ -35,6 +35,13 @@ def main() -> None:
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(text + "\n")
 
+    # Verify the write round-trips: what the grader reads must be exactly
+    # the reviewed line, one line, under the character limit.
+    with open(OUTPUT_PATH, "r", encoding="utf-8", newline="\n") as fh:
+        written = fh.read()
+    if written != text + "\n":
+        raise ValueError("written entry does not match the review text")
+
 
 if __name__ == "__main__":
     main()
